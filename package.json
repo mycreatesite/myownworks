@@ -9,6 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.7.10"
+    "@fontsource-variable/instrument-sans": "^5.2.5",
+    "astro": "^5.7.10",
+    "gsap": "^3.13.0"
   }
 }

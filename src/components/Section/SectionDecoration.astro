@@ -1,0 +1,52 @@
+---
+import LogoTextBlack from '../Element/LogoTextBlack.astro';
+---
+
+<section id="sectionDecoration">
+  <div class="logoContainer">
+    <h1>
+      <LogoTextBlack class="default" />
+      <LogoTextBlack class="reverse" />
+    </h1>
+  </div>
+  <div class="noise"></div>
+</section>
+
+<style>
+	#sectionDecoration {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  .logoContainer {
+    height: 100%;
+    h1 {
+      margin: 0;
+      height: 100%;
+      display: grid;
+      align-content: space-between;
+      svg {
+        width: 100%;
+        height: auto;
+        &.default {
+          margin-top: -6px;
+        }
+        &.reverse {
+          transform: rotate(180deg);
+          margin-bottom: -6px;
+        }
+      }
+    }
+  }
+  .noise {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url(../../assets/image/noise.png);
+  }
+
+</style>

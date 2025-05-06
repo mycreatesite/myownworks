@@ -1,0 +1,25 @@
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Instrument Sans Variable', sans-serif;
+  background-color: #E4E9DE;
+}
+body * {
+  box-sizing: border-box;
+}
+#wrapper, main {
+  height: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

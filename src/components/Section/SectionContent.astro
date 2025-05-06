@@ -1,0 +1,106 @@
+---
+const allPosts = await Astro.glob('../../markdown/*.md');
+---
+
+<section id="sectionContent" class="js-horizontalScrollContainer">
+  <div class="contentRow">
+    <div class="description">
+      <p>A list of my own<br>precious, precious<br>works.</p>
+    </div>
+    <div class="scrollContentWrapper">
+      <div class="scrollContent">
+        <div class="scrollContentList">
+          {allPosts.map((post) => (
+            <a href={post.frontmatter.href} target="_blank" class="scrollContentItem js-horizontalScrollItem">
+              <div class="image">
+                <img src={post.frontmatter.image.src} alt="" />
+              </div>
+              <h2 class="title">{post.frontmatter.title}</h2>
+              <ul class="list">
+                {post.frontmatter.tag.map((tag: string) => <li class="item">{tag}</li>)}
+              </ul>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #sectionContent {
+    position: relative;
+    display: grid;
+    height: 100%;
+    align-content: center;
+  }
+  .inner {
+    height: 100%;
+  }
+  .scrollContentWrapper {
+    position: relative;
+    margin-left: 12.5svw;
+  }
+  .scrollContentList {
+    display: flex;
+    gap: 80px;
+  }
+  .scrollContentItem {
+    display: block;
+    width: 35.4svw;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 16/9;
+      border-radius: 8px;
+    }
+  }
+  .image {
+    margin-bottom: 1rem;
+  }
+  .title {
+    line-height: 1.75;
+    margin: 0;
+  }
+  .list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
+  .item {
+    font-size: .875rem;
+    color: #fff;
+    background-color: #000;
+    padding: 2px 8px;
+    inline-size: max-content;
+  }
+  .description {
+    width: 12.5%;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    display: flex;
+    z-index: 0;
+    p {
+      position: relative;
+      margin: 0;
+      padding-left: 3vw;
+      padding-bottom: 8px;
+      font-size: .875rem;
+      line-height: 1.5;
+      white-space: nowrap;
+      &::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        content: '';
+        width: 100%;
+        height: 1px;
+        background-color: #000;
+      }
+    }
+  } 
+
+</style>
