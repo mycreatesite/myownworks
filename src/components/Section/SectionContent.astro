@@ -1,79 +1,174 @@
 ---
+import { Image } from 'astro:assets';
 const allPosts = await Astro.glob('../../markdown/*.md');
 ---
 
 <section id="sectionContent" class="js-horizontalScrollContainer">
   <div class="contentRow">
     <div class="description">
-      <p>A list of my own<br>precious, precious<br>works.</p>
+      <p>A list of my own <br>precious, precious <br>works.</p>
     </div>
     <div class="scrollContentWrapper">
       <div class="scrollContent">
         <div class="scrollContentList">
           {allPosts.map((post) => (
-            <a href={post.frontmatter.href} target="_blank" class="scrollContentItem js-horizontalScrollItem">
-              <div class="image">
-                <img src={post.frontmatter.image.src} alt="" />
+            <div class="js-horizontalScrollItem">
+              <div class="js-timeDifferenceItem">
+                <a href={post.frontmatter.href} target="_blank" class="scrollContentItem">
+                  <div class="image">
+                    <Image
+                      src={post.frontmatter.image.src}
+                      alt=""
+                      width="800"
+                      height="450"
+                    />
+                  </div>
+                  <h2 class="title">{post.frontmatter.title}</h2>
+                  {post.frontmatter.tag && (
+                    <ul class="list">
+                      {post.frontmatter.tag.map((tag: string) => <li class="item">{tag}</li>)}
+                    </ul>
+                  )}
+                </a>
               </div>
-              <h2 class="title">{post.frontmatter.title}</h2>
-              <ul class="list">
-                {post.frontmatter.tag.map((tag: string) => <li class="item">{tag}</li>)}
-              </ul>
-            </a>
+            </div>
           ))}
+          <div class="js-horizontalScrollItem">
+            <div class="js-timeDifferenceItem footerWrapper">
+              <footer class="footer">
+                <div class="content">
+                  <ul class="list">
+                    <li class="item">
+                      <a href="https://myscreate.com/" target="_blank">
+                        <img src="/src/assets/image/logo-myc.svg" alt="ma-ya's CREATE">
+                      </a>
+                    </li>
+                    <li class="item">
+                      <a href="https://wicd-02-next.vercel.app/" target="_blank">
+                        <img src="/src/assets/image/logo-wicd.svg" alt="WHAT I CAN DO.">
+                      </a>
+                    </li>
+                  </ul>
+                  <p class="copy">© Copyright {new Date().getFullYear()} │ ma-ya's CREATE All rights reserved.</p>
+                </div>
+              </footer>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<style>
+<style lang="scss">
+  @use "../../assets/css/variables" as var;
   #sectionContent {
     position: relative;
     display: grid;
     height: 100%;
     align-content: center;
+    @include var.breakPoint("sp") {
+      display: block;
+    }
   }
-  .inner {
-    height: 100%;
+  .contentRow {
+    @include var.breakPoint("sp") {
+      padding-inline: 10vw;
+      padding-block: 16vh;
+    }
   }
   .scrollContentWrapper {
     position: relative;
-    margin-left: 12.5svw;
+    padding-left: 12.5svw;
+    padding-top: 2rem;
+    @include var.breakPoint("pc-small") {
+      padding-left: 20svw;
+    }
+    @include var.breakPoint("sp") {
+      padding-left: 0;
+      padding-top: 0;
+    }
   }
   .scrollContentList {
     display: flex;
     gap: 80px;
-  }
-  .scrollContentItem {
-    display: block;
-    width: 35.4svw;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      aspect-ratio: 16/9;
-      border-radius: 8px;
+    @include var.breakPoint("sp") {
+      flex-direction: column;
+      gap: 56px;
     }
   }
-  .image {
-    margin-bottom: 1rem;
+  .scrollContentItem {
+    position: relative;
+    top: 0;
+    display: block;
+    width: 35.4svw;
+    transition: .6s cubic-bezier(0.33, 1, 0.68, 1);
+    @include var.breakPoint("pc-small") {
+      width: 50svw;
+    }
+    @include var.breakPoint("sp") {
+      width: 100%;
+    }
+    @include var.hover {
+      transform: translateY(-8px);
+      .image {
+        box-shadow: 0 0 64px rgba(#000, .2);
+        img {
+          transform: scale(1.05);
+        }
+      }
+    }
+    .image {
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      transition: .6s cubic-bezier(0.33, 1, 0.68, 1);
+      @include var.breakPoint("sp") {
+        margin-bottom: .25rem;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        aspect-ratio: 16/9;
+        transition: 1.5s cubic-bezier(0.33, 1, 0.68, 1);
+      }
+    }
+    .title {
+      line-height: 1.75;
+      margin: 0;
+      @include var.breakPoint("sp") {
+        line-height: 1.25;
+        background-color: #E4E9DE;
+        width: fit-content;
+        margin-bottom: 8px;
+      }
+    }
+    .list {
+      display: flex;
+      flex-direction: column;
+      row-gap: 8px;
+      .item {
+        font-size: .875rem;
+        color: #fff;
+        background-color: #000;
+        padding: 2px 8px;
+        inline-size: max-content;
+      }
+    }
   }
-  .title {
-    line-height: 1.75;
-    margin: 0;
-  }
-  .list {
-    display: flex;
-    flex-direction: column;
-    row-gap: 8px;
-  }
-  .item {
-    font-size: .875rem;
-    color: #fff;
-    background-color: #000;
-    padding: 2px 8px;
-    inline-size: max-content;
+  .js-timeDifferenceItem {
+    opacity: 0;
+    translate: 32px 0;
+    transition: 1s cubic-bezier(0.65, 0, 0.35, 1);
+    @include var.breakPoint("sp") {
+      translate: 0 32px;
+    }
+    &.is-active {
+      opacity: 1;
+      translate: 0;
+    }
   }
   .description {
     width: 12.5%;
@@ -83,6 +178,14 @@ const allPosts = await Astro.glob('../../markdown/*.md');
     transform: translateY(-50%);
     display: flex;
     z-index: 0;
+    opacity: 0;
+    transition: opacity 1s;
+    @include var.breakPoint("sp") {
+      display: block;
+      top: 10%;
+      left: 10vw;
+      width: 80vw;
+    }
     p {
       position: relative;
       margin: 0;
@@ -91,6 +194,13 @@ const allPosts = await Astro.glob('../../markdown/*.md');
       font-size: .875rem;
       line-height: 1.5;
       white-space: nowrap;
+      @include var.breakPoint("sp") {
+        padding: 0;
+        text-align: center;
+        br {
+          display: none;
+        }
+      }
       &::after {
         position: absolute;
         bottom: 0;
@@ -99,8 +209,71 @@ const allPosts = await Astro.glob('../../markdown/*.md');
         width: 100%;
         height: 1px;
         background-color: #000;
+        animation: line 2s cubic-bezier(0, 0.55, 0.45, 1) infinite;
+        @keyframes line {
+          0% {
+              transform: scaleX(0);
+              transform-origin: left
+          }
+          50% {
+              transform: scaleX(1);
+              transform-origin: left
+          }
+          51% {
+              transform: scaleX(1);
+              transform-origin: right
+          }
+          100% {
+              transform: scaleX(0);
+              transform-origin: right
+          }
+        }
+        @include var.breakPoint("sp") {
+          content: none;
+        }
       }
     }
-  } 
-
+  }
+  .footerWrapper {
+    height: 100%;
+  }
+  .footer {
+    width: 35.4svw;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    margin-top: -2rem;
+    @include var.breakPoint("sp") {
+      width: 100%;
+      margin-top: 0;
+    }
+    .content {
+      display: grid;
+      row-gap: 1rem;
+      height: max-content;
+    }
+    .list {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      justify-content: center;
+    }
+    .item {
+      a {
+        transition: opacity .3s;
+        @include var.hover {
+          opacity: .5;
+        }
+      }
+    }
+    .copy {
+      font-size: .875rem;
+      margin: 0;
+    }
+  }
+  .is-active {
+    .description {
+      opacity: 1;
+    }
+  }
 </style>

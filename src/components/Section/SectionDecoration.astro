@@ -1,12 +1,12 @@
 ---
-import LogoTextBlack from '../Element/LogoTextBlack.astro';
+import LogoText from '../Element/LogoText.astro';
 ---
 
 <section id="sectionDecoration">
   <div class="logoContainer">
     <h1>
-      <LogoTextBlack class="default" />
-      <LogoTextBlack class="reverse" />
+      <LogoText class="default" color="black" />
+      <LogoText class="reverse" color="black" />
     </h1>
   </div>
   <div class="noise"></div>
@@ -30,12 +30,18 @@ import LogoTextBlack from '../Element/LogoTextBlack.astro';
       svg {
         width: 100%;
         height: auto;
+        transition: 1.5s 2s cubic-bezier(0.87, 0, 0.13, 1);
         &.default {
           margin-top: -6px;
+          translate: 0 -100%;
+          transform: skewY(-5deg);
+          transform-origin: left bottom;
         }
         &.reverse {
-          transform: rotate(180deg);
           margin-bottom: -6px;
+          rotate: 180deg;
+          translate: 0 140%;
+          transform: skewY(-5deg);
         }
       }
     }
@@ -47,6 +53,20 @@ import LogoTextBlack from '../Element/LogoTextBlack.astro';
     top: 0;
     left: 0;
     background-image: url(../../assets/image/noise.png);
+  }
+  .is-active {
+    .logoContainer {
+      svg {
+        &.default {
+          translate: 0;
+          transform: skewY(0);
+        }
+        &.reverse {
+          translate: 0;
+          transform: skewY(0);
+        }
+      }
+    }
   }
 
 </style>

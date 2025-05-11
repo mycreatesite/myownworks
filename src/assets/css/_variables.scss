@@ -1,0 +1,22 @@
+@use "sass:map";
+
+$transition: .4s;
+
+$breakpoints: (
+  "pc-small": "(width <= 1200px)",
+  "sp": "(width <= 768px)",
+);
+
+@mixin breakPoint($key) {
+  @media #{map.get($breakpoints, $key)} {
+    @content;
+  }
+}
+
+@mixin hover {
+  @media (hover: hover){
+    &:where(:any-link):hover {
+      @content;
+    }
+  }
+}
