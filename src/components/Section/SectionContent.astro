@@ -1,8 +1,20 @@
 ---
 import { Image } from 'astro:assets';
-const allPosts = await Astro.glob('../../markdown/*.md');
 import logoMyc from '../../assets/image/logo-myc.svg';
 import logoWicd from '../../assets/image/logo-wicd.svg';
+const markdown = import.meta.glob('../../markdown/*.md', { eager: true });
+const allImages = import.meta.glob('../../assets/works/*.{jpg,png,webp}', {
+  eager: true,
+  import: 'default',
+});
+const allPosts = Object.values(markdown).map((post: any) => {
+  const imageKey = post.frontmatter.image;
+  const image = Object.entries(allImages).find(([key]) => key.endsWith(imageKey))?.[1];
+  return {
+    ...post.frontmatter,
+    image,
+  };
+});
 ---
 
 <section id="sectionContent" class="js-horizontalScrollContainer">
@@ -16,19 +28,19 @@ import logoWicd from '../../assets/image/logo-wicd.svg';
           {allPosts.map((post) => (
             <div class="js-horizontalScrollItem">
               <div class="js-timeDifferenceItem">
-                <a href={post.frontmatter.href} target="_blank" class="scrollContentItem">
+                <a href={post.href} target="_blank" class="scrollContentItem">
                   <div class="image">
                     <Image
-                      src={post.frontmatter.image.src}
-                      alt=""
-                      width="800"
-                      height="450"
+                      src={post.image}
+                      alt={''}
+                      width={800}
+                      height={450}
                     />
                   </div>
-                  <h2 class="title">{post.frontmatter.title}</h2>
-                  {post.frontmatter.tag && (
+                  <h2 class="title">{post.title}</h2>
+                  {post.tag && (
                     <ul class="list">
-                      {post.frontmatter.tag.map((tag: string) => <li class="item">{tag}</li>)}
+                      {post.tag.map((tag: string) => <li class="item">{tag}</li>)}
                     </ul>
                   )}
                 </a>
