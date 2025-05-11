@@ -12,7 +12,8 @@ import LogoText from '../Element/LogoText.astro';
   <div class="noise"></div>
 </section>
 
-<style>
+<style lang="scss" is:global>
+  @use "../../assets/css/variables" as var;
 	#sectionDecoration {
     position: fixed;
     width: 100%;
@@ -27,21 +28,27 @@ import LogoText from '../Element/LogoText.astro';
       height: 100%;
       display: grid;
       align-content: space-between;
-      svg {
-        width: 100%;
-        height: auto;
-        transition: 1.5s 2s cubic-bezier(0.87, 0, 0.13, 1);
-        &.default {
-          margin-top: -6px;
-          translate: 0 -100%;
-          transform: skewY(-5deg);
-          transform-origin: left bottom;
+    }
+    .logoText {
+      width: 100%;
+      height: auto;
+      transition: 1.5s 2s cubic-bezier(0.87, 0, 0.13, 1);
+      &.default {
+        margin-top: -6px;
+        translate: 0 -100%;
+        transform: skewY(-5deg);
+        transform-origin: left bottom;
+        @include var.breakPoint("sp") {
+          margin-top: 0;
         }
-        &.reverse {
-          margin-bottom: -6px;
-          rotate: 180deg;
-          translate: 0 140%;
-          transform: skewY(-5deg);
+      }
+      &.reverse {
+        margin-bottom: -6px;
+        rotate: 180deg;
+        translate: 0 140%;
+        transform: skewY(-5deg);
+        @include var.breakPoint("sp") {
+          margin-bottom: 0;
         }
       }
     }
@@ -68,5 +75,4 @@ import LogoText from '../Element/LogoText.astro';
       }
     }
   }
-
 </style>
