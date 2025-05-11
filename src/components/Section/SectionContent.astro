@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 const allPosts = await Astro.glob('../../markdown/*.md');
+import logoMyc from '../../assets/image/logo-myc.svg';
+import logoWicd from '../../assets/image/logo-wicd.svg';
 ---
 
 <section id="sectionContent" class="js-horizontalScrollContainer">
@@ -40,12 +42,12 @@ const allPosts = await Astro.glob('../../markdown/*.md');
                   <ul class="list">
                     <li class="item">
                       <a href="https://myscreate.com/" target="_blank">
-                        <img src="/src/assets/image/logo-myc.svg" alt="ma-ya's CREATE">
+                        <img src={logoMyc.src} width={logoMyc.width} height={logoMyc.height} alt="ma-ya's CREATE">
                       </a>
                     </li>
                     <li class="item">
                       <a href="https://wicd-02-next.vercel.app/" target="_blank">
-                        <img src="/src/assets/image/logo-wicd.svg" alt="WHAT I CAN DO.">
+                        <img src={logoWicd.src} width={logoWicd.width} height={logoWicd.height} alt="WHAT I CAN DO.">
                       </a>
                     </li>
                   </ul>
