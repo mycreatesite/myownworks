@@ -3,23 +3,30 @@ import '@fontsource-variable/instrument-sans';
 import '../assets/css/global.scss';
 const canonicalURL = new URL(Astro.url.pathname, 'https://myownworks.vercel.app/');
 const ogpImageURL = new URL('/img-ogp.png', canonicalURL);
+const sitetitle = 'MY OWN WORKS';
+const sitedescription = 'A list of my own precious, precious works.';
+const siteurl = 'https://myownworks.vercel.app/';
 ---
 
 <!doctype html>
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8" />
-		<title>MY OWN WORKS</title>
-		<meta name="description" content="A list of my own precious, precious works." />
+		<title>{sitetitle}</title>
+		<meta name="description" content={sitedescription} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<meta property="og:type" content="website" />
-		<meta property="og:description" content="A list of my own precious, precious works."/>
-		<meta property="og:title" content="MY OWN WORKS" />
-		<meta property="og:site_name" content="MY OWN WORKS" />
+		<meta property="og:description" content={sitedescription}/>
+		<meta property="og:title" content={sitetitle} />
+		<meta property="og:site_name" content={sitetitle} />
 		<meta property="og:image" content={ogpImageURL} />
-		<meta property="og:url" content="https://myownworks.vercel.app/" />
+		<meta property="og:url" content={siteurl} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={sitetitle} />
+		<meta name="twitter:description" content={sitedescription} />
+		<meta name="twitter:image" content={ogpImageURL} />
 	</head>
 	<body class="is-fixed">
 		<slot />
