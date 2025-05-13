@@ -21,7 +21,7 @@ function horizontalScroll(xPercent) {
       scrollTrigger: {
          trigger: wrapper,
          pin: true,
-         scrub: 1,
+         scrub: true,
          end: () => "+=" + wrapperWidth,
          anticipatePin: 1,
          invalidateOnRefresh: true,
